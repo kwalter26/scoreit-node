@@ -3,7 +3,7 @@
 module.exports = function (app) {
 
     router.get('/login', function (req, res, next) {
-        res.send('Login');
+        res.render('login');
     });
 
     router.get('/register', function (req, res, next) {
