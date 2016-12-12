@@ -1,0 +1,11 @@
+﻿extends layout
+
+block content
+  
+        form(action='/auth/register' method='post')
+            h1 Register
+            label Email
+            input(type='email' name='email')
+            label Password
+            input(type='password' name='password')
+            button(type='submit') Register

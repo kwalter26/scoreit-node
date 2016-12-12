@@ -30,10 +30,14 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="controllers\passport.js" />
+    <Compile Include="controllers\user.js" />
     <Compile Include="routes\auth.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="server.js" />
     <None Include="scoreit-node - Web Deploy.pubxml" />
+    <Content Include="models\user.js" />
+    <Content Include="views\register.pug" />
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\login.pug" />
@@ -49,6 +53,7 @@
   <ItemGroup>
     <Folder Include="bin\" />
     <Folder Include="models\" />
+    <Folder Include="controllers\" />
     <Folder Include="views\" />
     <Folder Include="routes\" />
   </ItemGroup>
