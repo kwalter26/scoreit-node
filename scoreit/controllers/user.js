@@ -1,4 +1,5 @@
-﻿module.exports = {
+﻿var User = require('../models/user');
+module.exports = {
     newUser: function (email, password, role, callback) {
         var newUser = new User();
         newUser.email = email;
@@ -10,4 +11,4 @@
             callback(newUser);
         });
     }
-}
+};

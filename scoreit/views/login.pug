@@ -1,4 +1,10 @@
 ﻿extends layout
 
 block content
-    h1 Login
+   form(action='/auth/login' method='post')
+            h1 Login
+            label Email
+            input(type='email' name='email')
+            label Password
+            input(type='password' name='password')
+            button(type='submit') Login

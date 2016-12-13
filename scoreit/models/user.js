@@ -9,7 +9,7 @@ var userSchema = mongoose.Schema({
 	tokenExpire: Date,
 	role: String,
 	email: String,
-	password: String,
+	password: String
 });
 
 userSchema.methods.updatePassword = function (password) {
