@@ -261,6 +261,6 @@ __pycache__/
 *.pyc
 
 
-./client
-./public/css
-./public/js
+client
+public/css
+public/js
