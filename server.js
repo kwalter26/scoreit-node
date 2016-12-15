@@ -1,9 +1,7 @@
-'use strict';
-
 //Dependencies
 var express = require('express');
 var app = express();
-var port = process.env.port || 1337;
+var port = process.env.port || 3000;
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
@@ -48,7 +46,7 @@ app.set('permission', {
         redirect: '/auth/login'
     }
 });
- 
+
 // Routing
 require('./routes/index')(app,passport);
 
@@ -58,5 +56,5 @@ app.set('view engine', 'pug');
 
 
 app.listen(port, function () {
-    console.log('Example app listening on port 3000!');
+    console.log('Example app listening on port '+port+'!');
 });
