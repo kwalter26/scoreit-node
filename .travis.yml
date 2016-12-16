@@ -5,3 +5,8 @@ node_js:
 before_script:
 - npm install -g gulp
 script: gulp
+deploy:
+  provider: script
+  script: curl https://registry.hub.docker.com/u/kwalter26/scoreit-node/trigger/33d96b7b-2e41-4e1c-b042-64c8298e2c18/
+  on:
+    branch: master
