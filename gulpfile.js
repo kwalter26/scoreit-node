@@ -4,7 +4,8 @@ var minify = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
-
+var util = require('gulp-util');
+var mocha = require('gulp-mocha');
 
 gulp.task('libraries', function() {
   gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css')
@@ -29,6 +30,12 @@ gulp.task('js', function() {
     .pipe(concat('all.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./public/js'));
+});
+
+gulp.task('test', function(){
+    return gulp.src('./tests/**/*.js', {read: false})
+        // gulp-mocha needs filepaths so you can't have any plugins before it
+        .pipe(mocha({reporter: 'spec'}));
 });
 
 gulp.task('default',['libraries','js','css'],function(){
