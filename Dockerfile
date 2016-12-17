@@ -8,4 +8,5 @@ RUN npm install
 RUN npm install -g gulp-cli
 RUN gulp
 
-EXPOSE 4444
+EXPOSE 3000
+CMD ['npm','start']
