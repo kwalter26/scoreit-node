@@ -2,7 +2,9 @@ language: node_js
 node_js:
   - "6.1"
   - "6.0"
+services: mongodb
 before_script:
+- apt-get install curl
 - npm install -g gulp
 script: gulp
 deploy:
