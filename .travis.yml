@@ -4,7 +4,8 @@ node_js:
   - "6.0"
 services: mongodb
 before_script:
-- apt-get install curl
+- sudo apt-get -qq update
+- sudo apt-get install -y curl
 - npm install -g gulp
 script: gulp
 deploy:
