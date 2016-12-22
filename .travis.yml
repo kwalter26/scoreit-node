@@ -7,6 +7,6 @@ before_script:
 script: gulp
 deploy:
   provider: script
-  script: curl -X POST https://registry.hub.docker.com/u/kwalter26/scoreit-node/trigger/33d96b7b-2e41-4e1c-b042-64c8298e2c18/
+  script: curl -H "Content-Type: application/json" --data '{"source_type": "Branch", "source_name": "staging"}' -X POST https://registry.hub.docker.com/u/kwalter26/scoreit-node/trigger/40d5e8eb-2ea9-4077-9fca-1cf0bdbfade6/
   on:
     branch: master
