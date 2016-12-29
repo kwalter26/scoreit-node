@@ -1,1 +1,5 @@
-curl -X POST https://registry.hub.docker.com/u/kwalter26/scoreit-node/trigger/40d5e8eb-2ea9-4077-9fca-1cf0bdbfade6/
+#!/bin/bash
+#build the image    
+docker build --no-cache -t kwalter26/scoreit-node .    
+#push the image to repo    
+docker push kwalter26/scoreit-node
