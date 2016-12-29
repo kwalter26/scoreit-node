@@ -12,6 +12,7 @@ before_script:
 script: gulp
 deploy:
   provider: script
-  script: deploy.sh
+  skip_cleanup: true
+  script: chmod +x deploy.sh && ./deploy.sh
   on:
     branch: master
