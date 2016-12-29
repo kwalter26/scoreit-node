@@ -1,5 +1,5 @@
 #!/bin/bash
 #build the image    
-docker build -t kwalter/scoreit-node:latest .
+docker build -t kwalter26/scoreit-node:latest .
 #push the image to repo    
-docker push kwalter/scoreit-node:latest
+docker push kwalter26/scoreit-node:latest
