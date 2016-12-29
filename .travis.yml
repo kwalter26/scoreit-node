@@ -12,10 +12,6 @@ before_script:
 script: gulp
 deploy:
   provider: script
-  script: 
-    #build the image
-    - docker build --no-cache -t kwalter26/scoreit-node .
-    #push the image to repo
-    - docker push kwalter26/scoreit-node
+  script: deploy.sh
   on:
     branch: master
