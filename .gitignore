@@ -261,6 +261,6 @@ __pycache__/
 *.pyc
 
 
-client
+client/compile
 public/css
 public/js
