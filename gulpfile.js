@@ -6,21 +6,18 @@ var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var util = require('gulp-util');
 var mocha = require('gulp-mocha');
+var scss = require("gulp-scss");
 
-gulp.task('libraries', function() {
-  gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css')
-    .pipe(gulp.dest('./client/css/libraries'));
-  gulp.src('./node_modules/jquery/dist/jquery.min.js')
-    .pipe(gulp.dest('./public/js/'));
-  gulp.src('./node_modules/bootstrap/dist/js/bootstrap.min.js')
-    .pipe(gulp.dest('./public/js/'));
-});
-
-gulp.task('css', function(){
-    gulp.src('./client/css/**/*.css')
-        .pipe(concat('style.css'))
-        .pipe(minify())
-        .pipe(gulp.dest('./public/css'));
+gulp.task('client-build', function() {
+  gulp.src('./client/style/_custom.scss')
+    .pipe(gulp.dest('./node_modules/bootstrap/scss'));
+  gulp.src('./client/style/_variables.scss')
+    .pipe(gulp.dest('./node_modules/bootstrap/scss'));
+  gulp.src('./node_modules/jquery/dist/jquery.js')
+    .pipe(gulp.dest('./client/compile/'));
+  gulp.src('./client/style/style.scss')
+    .pipe(scss({"bundleExec": true}))
+    .pipe(gulp.dest('./client/compile/style.css'));
 });
 
 gulp.task('js', function() {
@@ -36,5 +33,5 @@ gulp.task('test', function(){
         .pipe(mocha({reporter: 'spec'}));
 });
 
-gulp.task('default',['libraries','js','css'],function(){
+gulp.task('build',['libraries','js','css'],function(){
 });
