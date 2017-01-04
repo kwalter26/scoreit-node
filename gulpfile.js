@@ -16,8 +16,6 @@ gulp.task('libraries', function() {
     .pipe(gulp.dest('./public/js/'));
 });
 
-
-
 gulp.task('css', function(){
     gulp.src('./client/css/**/*.css')
         .pipe(concat('style.css'))
