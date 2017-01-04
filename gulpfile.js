@@ -1,29 +1,42 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
-var minify = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
-var uglify = require('gulp-uglify');
+var minify = require('gulp-uglify');
 var util = require('gulp-util');
 var mocha = require('gulp-mocha');
-var scss = require("gulp-scss");
+var sass = require('gulp-sass');
+var cleanCSS = require('gulp-clean-css');
+var watch = require('gulp-watch');
 
-gulp.task('client-build', function() {
-  gulp.src('./client/style/_custom.scss')
+gulp.task('styles', function() {
+  gulp.src('./client/style/bootstrap/_custom.scss')
     .pipe(gulp.dest('./node_modules/bootstrap/scss'));
-  gulp.src('./client/style/_variables.scss')
+  gulp.src('./client/style/bootstrap/_variables.scss')
     .pipe(gulp.dest('./node_modules/bootstrap/scss'));
-  gulp.src('./node_modules/jquery/dist/jquery.js')
-    .pipe(gulp.dest('./client/compile/'));
   gulp.src('./client/style/style.scss')
-    .pipe(scss({"bundleExec": true}))
-    .pipe(gulp.dest('./client/compile/style.css'));
+    .pipe(sass.sync().on('error', sass.logError))
+    .pipe(cleanCSS({debug: true}, function(details) {
+      console.log(details.name + ': ' + details.stats.originalSize);
+      console.log(details.name + ': ' + details.stats.minifiedSize);
+    }))
+    .pipe(gulp.dest('./public/css'));
 });
 
-gulp.task('js', function() {
-  return gulp.src('client/js/**/*.js')
+gulp.task('js',function(){
+  gulp.src('./node_modules/jquery/dist/jquery.min.js')
+    .pipe(gulp.dest('./public/js/'));
+  gulp.src('./node_modules/tether/dist/js/tether.min.js')
+    .pipe(gulp.dest('./public/js/'));
+  gulp.src('./node_modules/bootstrap/dist/js/bootstrap.min.js')
+    .pipe(gulp.dest('./public/js/'));
+  gulp.src('./client/js/*.js')
+    .pipe(gulp.dest('./client/compile/'));
+  gulp.src('./client/js/**/*.js')
+    .pipe(gulp.dest('./client/compile/'));
+  gulp.src('./client/compile/*.js')
     .pipe(concat('all.js'))
-    .pipe(uglify())
+    .pipe(minify({ext:{min:'.js'}}))
     .pipe(gulp.dest('./public/js'));
 });
 
@@ -33,5 +46,10 @@ gulp.task('test', function(){
         .pipe(mocha({reporter: 'spec'}));
 });
 
-gulp.task('build',['libraries','js','css'],function(){
+gulp.task('watch',function(){
+  gulp.watch('./client/style/*', ['styles']);
+  gulp.watch('./client/js/*', ['js']);
+});
+
+gulp.task('default',['styles','js','test'],function(){
 });
