@@ -17,9 +17,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
 // Database Connection
 //mongoose.connect(process.env.MONGO_STRING, function (err) {
-mongoose.connect('mongodb://kali.walter.home:27017/scoreitdb', function (err) {
+mongoose.connect('mongodb://' + process.env.MONGODB_PORT_27017_TCP_ADDR + ':' + process.env.MONGODB_PORT_27017_TCP_PORT + '/scoreitdb', function (err) {
     if (err) console.log('Mongoose:   Error occured!', err);
     else console.log('Mongoose:   Connected');
 });
