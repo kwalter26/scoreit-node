@@ -2,19 +2,22 @@
 
 block content
 
-  .container
+  .container-fluid
     .row
-      .col-md-6.offset-md-3.col-xs-12.flex-xs-middle
-        form(action='/auth/login' method='post')
-          .card
-            .card-header
-              h2 Login
-            .card-block
-              .form-group
-                label.sr-only Email
-                input.form-control#inputEmail(type='email' name='email' placeholder='Email Address' required autofocus)
-              .form-group
-                label.sr-only Password
-                input.form-control#inputPassword(type='password' name='password' placeholder='Password' required)
-            .card-footer
-              button.btn.btn-lg.btn-success.btn-block(type='submit') Login
+      .col-md-6.offset-md-3
+        img.rounded.mx-auto.d-block(src='images/baseball.png')
+    .row
+      .col-md-6.offset-md-3.col-xs-12
+          form(action='/auth/login' method='post')
+            .card
+              .card-header
+                h2 Login
+              .card-block
+                .form-group
+                  label.sr-only Email
+                  input.form-control#inputEmail(type='email' name='email' placeholder='Email Address' required autofocus)
+                .form-group
+                  label.sr-only Password
+                  input.form-control#inputPassword(type='password' name='password' placeholder='Password' required)
+              .card-footer
+                button.btn.btn-lg.btn-success.btn-block(type='submit') Login

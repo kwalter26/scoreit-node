@@ -1,4 +1,18 @@
 ﻿extends layout
 
 block content
-    h1 Home
+  nav.navbar.navbar-light.bg-faded
+    a.navbar-brand(href='/') ScoreIt
+    button.navbar-toggler.hidden-sm-up.float-xs-right(type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header" aria-expanded="false" aria-label="Toggle navigation")
+    .collapse.navbar-toggleable-xs#navbar-header
+      ul.nav.navbar-nav.float-xs-left
+        li.nav-item
+          a.nav-link(href='/') Dashboard
+        li.nav-item
+          a.nav-link(href='/league') League
+        li.nav-item
+          a.nav-link(href='/auth/logout' target='_self') Logout
+  .container-fluid
+    .row
+      .col-md-12
+        .content(ng-view)

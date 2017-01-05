@@ -7,9 +7,9 @@ module.exports = function (passport) {
     });
 
     router.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/', 
-        failureRedirect: '/auth/login', 
-        failureFlash: true 
+        successRedirect: '/',
+        failureRedirect: '/auth/login',
+        failureFlash: true
     }));
 
     router.get('/register', function (req, res, next) {
@@ -21,6 +21,11 @@ module.exports = function (passport) {
         failureRedirect: '/auth/register',
         failureFlash: true
     }));
+
+    router.get('/logout', function(req, res){
+      req.logout();
+      res.redirect('/');
+    });
 
     return router;
 };

@@ -7,6 +7,8 @@
     "name": "walte"
   },
   "dependencies": {
+    "angular": "^1.6.1",
+    "angular-route": "^1.6.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "bootstrap": "^4.0.0-alpha.5",
@@ -28,15 +30,16 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean": "^0.3.2",
     "gulp-clean-css": "^2.3.2",
     "gulp-concat": "^2.6.1",
     "gulp-mocha": "^3.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.0.0",
     "gulp-scss": "^1.4.0",
+    "gulp-sync": "^0.1.4",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.11",
