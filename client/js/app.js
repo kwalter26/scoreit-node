@@ -3,9 +3,9 @@ angular.module('scoreitApp',['ngRoute'])
     $routeProvider
       .when('/',{
         templateUrl: '/page/dashboard',
-        controller: 'leagueController'
+        controller: 'dashboardController'
       })
-      .when('/league',{
+      .when('/leagues',{
         templateUrl: 'page/league',
         controller: 'leagueController'
       })

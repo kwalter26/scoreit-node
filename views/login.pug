@@ -10,8 +10,8 @@ block content
       .col-md-6.offset-md-3.col-xs-12
           form(action='/auth/login' method='post')
             .card
-              .card-header
-                h2 Login
+              .card-header.dirt
+                h2.text-white Login
               .card-block
                 .form-group
                   label.sr-only Email
@@ -19,5 +19,6 @@ block content
                 .form-group
                   label.sr-only Password
                   input.form-control#inputPassword(type='password' name='password' placeholder='Password' required)
+                a(href='/auth/forgot') Forgot password?
               .card-footer
-                button.btn.btn-lg.btn-success.btn-block(type='submit') Login
+                button.btn.btn-lg.btn-secondary.btn-block(type='submit') Login
