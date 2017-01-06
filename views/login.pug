@@ -4,21 +4,26 @@ block content
 
   .container-fluid
     .row
-      .col-md-6.offset-md-3
-        img.rounded.mx-auto.d-block(src='images/baseball.png')
+      .col-md-6.offset-md-3.col-xs-8.offset-xs-2
+        img.img-fluid.rounded.mx-auto.d-block(src='images/baseball.png')
     .row
-      .col-md-6.offset-md-3.col-xs-12
+      .col-md-4.offset-md-4.col-sm-6.offset-sm-3.col-xs-12
           form(action='/auth/login' method='post')
             .card
               .card-header.dirt
                 h2.text-white Login
               .card-block
+                if error.length > 0 
+                  .alert.alert-danger(role='alert')
+                    strong= error
                 .form-group
-                  label.sr-only Email
-                  input.form-control#inputEmail(type='email' name='email' placeholder='Email Address' required autofocus)
+                  label.sr-only Username
+                  input.form-control#inputUsername(type='text' name='username' placeholder='Username' required autofocus)
                 .form-group
                   label.sr-only Password
                   input.form-control#inputPassword(type='password' name='password' placeholder='Password' required)
-                a(href='/auth/forgot') Forgot password?
+                span
+                  a.btn.btn-link(href='/auth/register' target='_self') Register
+                  a.btn.btn-link(href='/auth/forgot' target='_self') Forgot password?
               .card-footer
                 button.btn.btn-lg.btn-secondary.btn-block(type='submit') Login

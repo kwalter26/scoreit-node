@@ -3,7 +3,7 @@
 module.exports = function (passport) {
 
     router.get('/login', function (req, res, next) {
-        res.render('login');
+        res.render('login',{error: req.flash('error')});
     });
 
     router.post('/login', passport.authenticate('local-login', {

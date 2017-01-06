@@ -14,20 +14,20 @@ module.exports = function (passport) {
     });
 
     passport.use('local-signup', new LocalStrategy({
-        usernameField: 'email',
+        usernameField: 'username',
         passwordField: 'password',
-        passReqToCallback: true 
+        passReqToCallback: true
     },
-        function (req, email, password, done) {
+        function (req, username, password, done) {
             console.log('test');
             process.nextTick(function () {
-                User.findOne({ 'email': email }, function (err, user) {
+                User.findOne({ 'username': username }, function (err, user) {
                     if (err)
                         return done(err);
                     if (user) {
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                        return done(null, false, req.flash('error', 'That email is already taken.'));
                     } else {
-                        userC.newUser(email, password, 'user', function (newUser) {
+                        userC.newUser(username,password,req.body.email,req.body.firstName,req.body.lastName,req.body.accountType,0, function (newUser) {
                             return done(null, newUser);
                         });
                     }
@@ -36,18 +36,18 @@ module.exports = function (passport) {
         }));
 
     passport.use('local-login', new LocalStrategy({
-        usernameField: 'email',
+        usernameField: 'username',
         passwordField: 'password',
-        passReqToCallback: true 
+        passReqToCallback: true
     },
-    function (req, email, password, done) {
-        User.findOne({ 'email': email }, function (err, user) {
+    function (req, username, password, done) {
+        User.findOne({ 'username': username }, function (err, user) {
             if (err)
                 return done(err);
             if (!user)
-                return done(null, false, req.flash('loginMessage', 'No user found.')); 
+                return done(null, false, req.flash('error', 'No user found.'));
             if (!user.validPassword(password))
-                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); 
+                return done(null, false, req.flash('error', 'Oops! Wrong password.'));
             return done(null, user);
         });
 

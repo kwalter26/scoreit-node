@@ -10,13 +10,14 @@ var path = require('path');
 var flash = require('connect-flash');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var favicon = require('serve-favicon');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 
 // Database Connection
@@ -27,6 +28,7 @@ mongoose.connect('mongodb://' + process.env.MONGODB_PORT_27017_TCP_ADDR + ':' + 
 });
 var MongoStore = require('connect-mongo')(session);
 var sessionStore = new MongoStore({ mongooseConnection: mongoose.connection, clear_interval: 10000 });
+require('./controllers/seeder');
 
 // Sessions and Passport
 app.use(session({
