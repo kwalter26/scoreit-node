@@ -3,7 +3,7 @@ var should = chai.should();
 var session = require('supertest-session');
 var server = require('../../server');
 var testSession = session(server);
-var User = require('../../controllers/user');
+var user = require('../../controllers/user');
 
 
 
