@@ -37,6 +37,7 @@ describe('Get all users',function(done){
     testSession
       .get('/api/user/all')
       .end(function(err,res){
+        console.log(res.body);
         res.body.length.should.have.equal(1);
         done();
       });
