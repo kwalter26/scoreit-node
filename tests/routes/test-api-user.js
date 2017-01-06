@@ -3,7 +3,15 @@ var should = chai.should();
 var session = require('supertest-session');
 var server = require('../../server');
 var testSession = session(server);
+var User = require('../../controllers/user');
 
+
+
+before(function(done){
+  user.newUser('testLM', 'test', 'test@test.com','Leauge','Manager','leagueManager',0,function(user,error){ 
+    done();
+  });
+});
 
 describe('Test User login',function(done){
   it('should not login with incorrect credentials',function(done){
