@@ -8,9 +8,7 @@ var user = require('../../controllers/user');
 
 
 before(function(done){
-  user.newUser('testLM', 'test', 'test@test.com','Leauge','Manager','leagueManager',0,function(user,error){ 
-    done();
-  });
+  return user.newUser('testLM', 'test', 'test@test.com','Leauge','Manager','leagueManager',0);
 });
 
 describe('Test User login',function(done){
