@@ -1,6 +1,5 @@
 ﻿var LocalStrategy = require('passport-local').Strategy;
-var User = require('../models/user');
-var userC = require('./user');
+var userController = require('./user');
 
 module.exports = function (passport) {
 
@@ -27,7 +26,7 @@ module.exports = function (passport) {
                     if (user) {
                         return done(null, false, req.flash('error', 'That email is already taken.'));
                     } else {
-                        userC.newUser(username,password,req.body.email,req.body.firstName,req.body.lastName,req.body.accountType,0, function (newUser) {
+                        user.createUser(username,password,req.body.email,req.body.firstName,req.body.lastName,req.body.accountType,0, function (newUser) {
                             return done(null, newUser);
                         });
                     }
