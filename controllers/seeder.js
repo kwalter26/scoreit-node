@@ -9,6 +9,9 @@ module.exports = function(){
     });
   };
 
+  this.leagueManager = function(callback){
+
+  };
 
   return this;
 };

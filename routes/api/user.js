@@ -5,7 +5,7 @@ router.get('/',function(req,res){
   var role = '';
   switch(req.user.role){
     case 'admin':
-      role = '*';
+      role = 'admin';
       break;
     case 'leagueManager':
       role = 'coach';
@@ -14,14 +14,14 @@ router.get('/',function(req,res){
       role = 'player';
       break;
   }
-  user.getUsers(role,function(users,err){
+  user.getUsers(role,function(err,users){
     return res.json(users);
   });
 });
 
 router.get('/:username',function(req,res){
-  user.getUser(req.params.username,function(user,err){
-    return res.json(user);
+  user.getUser(req.params.username,function(err,user){
+    return res.json({user:user,error:err});
   });
 });
 
