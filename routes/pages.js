@@ -4,7 +4,7 @@ router.get('/dashboard',function(req,res,next){
   res.render('pages/dashboard');
 });
 
-router.get('/league',require('permission')(['leagueManager']),function(req,res,next){
+router.get('/league',require('permission')(['admin','leagueManager']),function(req,res,next){
   console.log('Here');
   res.render('pages/league');
 });
