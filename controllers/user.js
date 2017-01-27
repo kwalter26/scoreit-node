@@ -19,12 +19,15 @@ exports.createUser = function (username, password, email,firstName,lastName, rol
       newUser.save(function (err) {
         if(err){
           log(err);
-          return;
+          return callback(err);
         }
+        log('User created: ' + username);
         return callback(null,newUser);
       });
+    }else{
+      return callback('Username Already Exists',null);
     }
-    return callback(null,'Username Already Exists');
+    
   });
 };
 exports.getUser = function(username, callback){
@@ -49,8 +52,6 @@ exports.getUser = function(username, callback){
   });
 };
 exports.getUsers = function(role,callback){
-
-  console.log(role);
   if(role == 'admin'){
     console.log('here');
     role = {};
@@ -78,6 +79,35 @@ exports.getUsers = function(role,callback){
       log('No users found under role:' + role);
       return callback('No users found under role: ' + role,null);
     });
+};
+exports.editUser = function (username, password, email,firstName,lastName, role, status, callback) {
+  User.findOne({username:username},{
+
+  },function(err,user){
+    if(err){
+        log(err);
+        return callback(null,err);
+    }
+    if(user){
+      user.firstName = firstName;
+      user.lastName = lastName;
+      user.username = username;
+      user.email = email;
+      user.role = role;
+      user.status = status;
+      if (password) newUser.updatePassword(password);
+      user.save(function (err) {
+        if(err){
+          log(err);
+          return;
+        }
+        log('User edited: ' + username);
+        return callback(null,newUser);
+      });
+    }
+    log('User not found: ' + username);
+    return callback('User not found',null);
+  });
 };
 exports.delete = function(username,callback){
   User.remove({username:username},function(err,user){

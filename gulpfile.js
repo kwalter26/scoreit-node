@@ -12,11 +12,11 @@ var clean = require('gulp-clean');
 var gulpsync = require('gulp-sync')(gulp);
 
 gulp.task('css', function() {
-  gulp.src('./client/style/bootstrap/_custom.scss')
+  gulp.src('./public/css/bootstrap/_custom.scss')
     .pipe(gulp.dest('./node_modules/bootstrap/scss'));
-  gulp.src('./client/style/bootstrap/_variables.scss')
+  gulp.src('./public/css/bootstrap/_variables.scss')
     .pipe(gulp.dest('./node_modules/bootstrap/scss'));
-  gulp.src('./client/style/style.scss')
+  gulp.src('./public/css/style.scss')
     .pipe(sass.sync().on('error', sass.logError))
     .pipe(cleanCSS({debug: true}, function(details) {
       console.log(details.name + ': ' + details.stats.originalSize);

@@ -1,20 +1,16 @@
 //Dependencies
-var express = require('express');
-var app = express();
-var port = process.env.port || 3000;
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var passport = require('passport');
-var mongoose = require('mongoose');
-var path = require('path');
-var flash = require('connect-flash');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var favicon = require('serve-favicon');
+import express from 'express';
+import mongoose from 'mongoose';
+import path from 'path';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import favicon from 'serve-favicon';
 
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+import config from './config';
+
+const app = express();
+
+app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
@@ -22,45 +18,24 @@ app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 // Database Connection
 //mongoose.connect(process.env.MONGO_STRING, function (err) {
-mongoose.connect('mongodb://' + process.env.MONGODB_PORT_27017_TCP_ADDR + ':' + process.env.MONGODB_PORT_27017_TCP_PORT + '/scoreitdb', function (err) {
+mongoose.connect('mongodb://' + process.env.MONGODB_PORT_27017_TCP_ADDR + ':' + process.env.MONGODB_PORT_27017_TCP_PORT + '/scoreitdb', (err) => {
     if (err) console.log('Mongoose:   Error occured!', err);
     else console.log('Mongoose:   Connected');
 });
-var MongoStore = require('connect-mongo')(session);
-var sessionStore = new MongoStore({ mongooseConnection: mongoose.connection, clear_interval: 10000 });
-require('./controllers/seeder');
 
-// Sessions and Passport
-app.use(session({
-    secret: process.env.SECRET,
-    store: sessionStore,
-    cookie: {
-        maxAge: 600000
-    }
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-require('./controllers/passport')(passport);
-app.set('permission', {
-    role: 'role',
-    notAuthenticated: {
-        flashType: 'error',
-        message: 'The entered credentials are incorrect',
-        redirect: '/auth/login'
-    }
-});
+//require('./controllers/seeder');
+
 
 // Routing
-require('./routes/index')(app,passport);
+//require('./routes/index')(app,passport);
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 
-app.listen(port, function () {
-    console.log('Example app listening on port '+port+'!');
+app.listen(config.server.port,config.server.host, () => {
+    console.log('Example app listening on port '+config.server.serverUrl+'!');
 });
 
-module.exports = app;
+export default app;

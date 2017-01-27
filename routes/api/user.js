@@ -15,8 +15,12 @@ router.get('/',function(req,res){
       break;
   }
   user.getUsers(role,function(err,users){
-    return res.json(users);
+    return res.json({users:users,error:err});
   });
+});
+
+router.post('/',function(req,res){
+
 });
 
 router.get('/:username',function(req,res){

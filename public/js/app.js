@@ -1,4 +1,4 @@
-var app = angular.module('scoreitApp',['ngRoute'])
+var app = angular.module('scoreitApp',['ngRoute']);
 
 // router
 app.config(['$routeProvider','$locationProvider', function ($routeProvider,$locationProvider) {
@@ -7,9 +7,13 @@ app.config(['$routeProvider','$locationProvider', function ($routeProvider,$loca
         templateUrl: '/page/dashboard',
         controller: 'dashboardController'
       })
-      .when('/leagues',{
+      .when('/league',{
         templateUrl: 'page/league',
         controller: 'leagueController'
+      })
+      .when('/admin',{
+        templateUrl: 'page/admin',
+        controller: 'adminController'
       })
       .when('/logout',{
         templateUrl: '',
@@ -30,4 +34,26 @@ app.controller('dashboardController',['$scope',function($scope){
 
 app.controller('leagueController',['$scope',function($scope){
     $scope.title = 'League';
+}]);
+
+app.controller('adminController',['$scope','$http',function($scope,$http){
+  $scope.title = 'Admin Dashbaord';
+  $scope.users = [];
+
+  $scope.getUsers = function(){
+    $http({
+      method: 'GET',
+      url: '/api/user'
+    }).then(function successCallback(response){
+      console.log(response);
+      console.log(response.error);
+      $scope.users = response.data.users;
+    }, function errorCallback(response){
+      console.log(response)
+    });
+  };
+
+  $scope.init = function(){
+    $scope.getUsers();
+  };
 }]);

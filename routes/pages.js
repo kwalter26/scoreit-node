@@ -9,4 +9,8 @@ router.get('/league',require('permission')(['admin','leagueManager']),function(r
   res.render('pages/league');
 });
 
+router.get('/admin',require('permission')(['admin']),function(req,res,next){
+  res.render('pages/admin');
+});
+
 module.exports = router;

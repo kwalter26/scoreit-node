@@ -11,9 +11,9 @@ block content
           form(action='/auth/login' method='post')
             .card
               .card-header.dirt
-                h2.text-white Login
+                h2 Login
               .card-block
-                if error.length > 0 
+                if error.length > 0
                   .alert.alert-danger(role='alert')
                     strong= error
                 .form-group
