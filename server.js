@@ -5,8 +5,10 @@ import path from 'path';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import favicon from 'serve-favicon';
+import bodyParser from 'body-parser';
 
 import config from './config';
+import routes from './routes';
 
 const app = express();
 
@@ -14,6 +16,9 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
+app.use(bodyParser.json());
+app.use('/',routes);
+
 
 
 // Database Connection
@@ -26,8 +31,7 @@ mongoose.connect('mongodb://' + process.env.MONGODB_PORT_27017_TCP_ADDR + ':' + 
 //require('./controllers/seeder');
 
 
-// Routing
-//require('./routes/index')(app,passport);
+
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));

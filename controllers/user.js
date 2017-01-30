@@ -1,11 +1,11 @@
 ﻿var User = require('../models/user');
-var exports = module.exports = {};
+var exports = {};
 
-exports.createUser = function (username, password, email,firstName,lastName, role, status, callback) {
+exports.createUser = function (username, password, email,firstName, lastName, role, status, done) {
   User.findOne({ 'username': username }, function (err, user) {
     if(err){
       log(err);
-      return callback(null,err);
+      return done(null,err);
     }
     if(!user){
       var newUser = new User();
@@ -16,18 +16,17 @@ exports.createUser = function (username, password, email,firstName,lastName, rol
       newUser.role = role;
       newUser.status = status;
       if (password) newUser.updatePassword(password);
-      newUser.save(function (err) {
+      newUser.save(function (err,newUser) {
         if(err){
           log(err);
-          return callback(err);
+          return done(err,null);
         }
         log('User created: ' + username);
-        return callback(null,newUser);
+        return done(null,newUser);
       });
     }else{
-      return callback('Username Already Exists',null);
+      return done('Username Already Exists',null);
     }
-    
   });
 };
 exports.getUser = function(username, callback){
@@ -123,6 +122,19 @@ exports.delete = function(username,callback){
     return callback('User not found: ' + username,null);
   });
 };
-function log(message){
+exports.authenticate = (username,password,done)=>{
+  User.findOne({username:username},(err,user)=>{
+    if (err)
+      return done(err,null);
+    if (!user)
+        return done('No user found.', null);
+    if (!user.validPassword(password))
+        return done('Oops! Wrong password.', null);
+    return done(null, user);
+  });
+};
+let log = (message)=>{
   console.log('Mongoose:  ' + message);
-}
+};
+
+export default exports;
