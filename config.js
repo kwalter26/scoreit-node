@@ -12,6 +12,10 @@ const config ={
         secret:'supersecret',
         expiresIn:30
     },
+    changeToken:{
+        length:6,
+        maxAge:60000 * 5
+    },
     mongo:{
         url: 'mongodb://' + process.env.MONGODB_PORT_27017_TCP_ADDR + ':' + process.env.MONGODB_PORT_27017_TCP_PORT + '/scoreitdb'
     },

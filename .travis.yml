@@ -6,7 +6,6 @@ services:
   - mongodb
   - docker
 before_script:
-  - npm install -g gulp
   #login to docker
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 script: npm test

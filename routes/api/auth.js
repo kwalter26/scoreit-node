@@ -36,7 +36,16 @@ router.post('/login',(req,res)=>{
 });
 
 router.post('/forget',(req,res)=>{
-
+    let user = req.body;
+    auth.forget(user.username,(err,type)=>{
+        let success = err ? false : true;
+        return res.json({
+            success:success,
+            type:type,
+            status:0,
+            error:err
+        });
+    });
 });
 
 router.get('/logout',(req,res)=>{
@@ -50,22 +59,22 @@ router.get('/logout',(req,res)=>{
 
 router.get('/check',(req,res)=>{
     let token = req.cookies.jwt;
-    auth.isAuthenticated(token,['admin'],(err,data)=>{
+    auth.isAuthenticated(token,0,(err,data)=>{
         if(err){
-            res.json({
+            return res.json({
                 success:false,
                 status:0,
                 error:err
             })
         }
         if(data){
-            res.json({
+            return res.json({
                 success:true,
-                status:data.status,
+                status:data._doc.status,
                 error:null
             })
         }
-        res.json({
+        return res.json({
             success:false,
             status:0,
             error:'Something went wrong'

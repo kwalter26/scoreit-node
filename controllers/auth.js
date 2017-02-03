@@ -35,23 +35,47 @@ exports.login = (username,password, done)=>{
     });
 };
 
-exports.forget = (username,passwrod,done)=>{
+exports.forget = (username,done)=>{
+    let token = Math.random().toString().substring(2,2+config.changeToken.length)
+    let currentUser = {
+        username:username,
+        token:token,
+        tokenExpire: Date.now() + config.changeToken.maxAge
+    };
+    console.log(currentUser)
+    userController.editUser(0,currentUser,(err,user)=>{
+        if(err) return done(err);
+        if(user) {
+            console.log(token);
+            if(user.useCell){
+                // Send text
+                return done(err,'cell');
+            }else{
+                // Send email
+                return done(err,'email');
+            }
+        }
+    });
+};
+
+exports.reset = ()=>{
 
 };
 
-exports.isAuthenticated = (token,roles,done)=>{
-    jwt.verify(token,config.jwt.secret,(err,data)=>{
+exports.isAuthenticated = (token,role,done)=>{
+    jwt.verify(token,config.jwt.secret,(err,decoded)=>{
         if(err) return done(err);
-        if(!data) return ('Something went wrong');
-        console.log(data);
-        for (let role of roles){
-
+        if(!decoded) return done('Something went wrong');
+        console.log(decoded._doc.role);
+        if(decoded._doc.role > role){
+            return done('Restricted',null)
         }
-        return done(err,data);
+        return done(err,decoded);
     });
 };
 
 let createToken = (data,done) =>{
+    console.log(data)
     jwt.sign(data,config.jwt.secret,{
         expiresIn:config.jwt.expiresIn,
         algorithm: 'HS256',
