@@ -8,9 +8,14 @@ var userSchema = mongoose.Schema({
 	lastName: String,
 	token: String,
 	tokenExpire: Date,
-	role: String,
+	role: Number,
 	password: String,
 	status: Number,
+	cell: String,
+	useCell: {
+		type:Boolean,
+		default: false
+    }
 });
 
 userSchema.methods.updatePassword = function (password) {

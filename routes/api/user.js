@@ -1,10 +1,12 @@
 var router = require('express').Router();
 var user = require('../../controllers/user');
 
-router.get('/all',function(req,res){
-
-  var role = 'leagueManager';
+router.get('/',function(req,res){
+  var role = '';
   switch(req.user.role){
+    case 'admin':
+      role = 'admin';
+      break;
     case 'leagueManager':
       role = 'coach';
       break;
@@ -12,10 +14,18 @@ router.get('/all',function(req,res){
       role = 'player';
       break;
   }
+  user.getUsers(role,function(err,users){
+    return res.json({users:users,error:err});
+  });
+});
 
+router.post('/',function(req,res){
 
-  user.getUsers(role,function(users,err){
-    return res.json(users);
+});
+
+router.get('/:username',function(req,res){
+  user.getUser(req.params.username,function(err,user){
+    return res.json({user:user,error:err});
   });
 });
 

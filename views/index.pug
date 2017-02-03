@@ -1,32 +1,4 @@
 ﻿extends layout
 
-block content
-  nav.navbar.navbar-light.bg-faded
-    button.navbar-toggler.hidden-sm-up.float-xs-right(type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header" aria-expanded="false" aria-label="Toggle navigation")
-    .collapse.navbar-toggleable-xs#navbar-header
-      a.navbar-brand(href='/') ScoreIt
-      ul.nav.navbar-nav
-        li.nav-item
-          a.nav-link(href='/') Dashboard
-        li.nav-item
-          a.nav-link(href='/league') League
-        if user.role == 'admin'
-          li.nav-item
-            a.nav-link(href='#') Admin
-        if user.role == 'leagueManager'
-          li.nav-item
-            a.nav-link(href='#') League Manager
-        if user.role == 'coach'
-          li.nav-item
-            a.nav-link(href='#') Team Manager
-        if user.role == 'player'
-          li.nav-item
-            a.nav-link(href='#') Player Card
-
-
-        li.nav-item.float-xs-left.float-sm-right
-          a.nav-link(href='/auth/logout' target='_self') Logout
-  .container-fluid
-    .row
-      .col-md-12
-        .content(ng-view)
+block app
+  h1 ScoreIt Node!
