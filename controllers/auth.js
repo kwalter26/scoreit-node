@@ -35,8 +35,18 @@ exports.login = (username,password, done)=>{
     });
 };
 
-exports.isAuthenticated = (token,done)=>{
+exports.forget = (username,passwrod,done)=>{
+
+};
+
+exports.isAuthenticated = (token,roles,done)=>{
     jwt.verify(token,config.jwt.secret,(err,data)=>{
+        if(err) return done(err);
+        if(!data) return ('Something went wrong');
+        console.log(data);
+        for (let role of roles){
+
+        }
         return done(err,data);
     });
 };

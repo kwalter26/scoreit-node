@@ -23,7 +23,7 @@ app.use('/',routes);
 
 // Database Connection
 //mongoose.connect(process.env.MONGO_STRING, function (err) {
-mongoose.connect('mongodb://' + process.env.MONGODB_PORT_27017_TCP_ADDR + ':' + process.env.MONGODB_PORT_27017_TCP_PORT + '/scoreitdb', (err) => {
+mongoose.connect(config.mongo.url, (err) => {
     if (err) console.log('Mongoose:   Error occured!', err);
     else console.log('Mongoose:   Connected');
 });

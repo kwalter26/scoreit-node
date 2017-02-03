@@ -6,6 +6,8 @@ import config from '../../config';
 const router = express.Router();
 import auth from '../../controllers/auth';
 
+
+
 router.post('/register',(req,res)=>{
     let user = req.body;
     auth.register(user.username,user.password,user.email,user.firstName,user.lastName,user.role,(err,token)=>{
@@ -14,8 +16,7 @@ router.post('/register',(req,res)=>{
         res.cookie('jwt',token,{maxAge:config.jwt.expiresIn * 1000,httpOnly:true});
         res.json({
             success:success,
-            auth:true,
-            status:0,
+            status:1,
             error:err
        });
     });
@@ -28,45 +29,47 @@ router.post('/login',(req,res)=>{
         res.cookie('jwt',token,{maxAge:config.jwt.expiresIn * 1000,httpOnly:true});
         res.json({
             success:success,
-            auth:true,
-            status:0,
+            status:1,
             error:err
         });
     });
+});
+
+router.post('/forget',(req,res)=>{
+
 });
 
 router.get('/logout',(req,res)=>{
     res.clearCookie('jwt');
     res.json({
         success:true,
-        auth:false,
-        status:null,
+        status:0,
         error:null
     })
 });
 
 router.get('/check',(req,res)=>{
     let token = req.cookies.jwt;
-    auth.isAuthenticated(token,(err,data)=>{
-        console.log(Date.now())
+    auth.isAuthenticated(token,['admin'],(err,data)=>{
         if(err){
             res.json({
-                success:true,
-                auth:false,
-                status:null,
-                error:null
+                success:false,
+                status:0,
+                error:err
             })
         }
         if(data){
             res.json({
                 success:true,
-                auth:true,
                 status:data.status,
                 error:null
             })
         }
-
-
+        res.json({
+            success:false,
+            status:0,
+            error:'Something went wrong'
+        })
     });
 });
 
