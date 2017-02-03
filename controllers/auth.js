@@ -4,6 +4,7 @@
 import userController from './user';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import com from './comController';
 const exports = {};
 
 /*
@@ -52,7 +53,9 @@ exports.forget = (username,done)=>{
                 return done(err,'cell');
             }else{
                 // Send email
-                return done(err,'email');
+                com.email('walter.kl26@gmail.com','Test','This is a test',(err,res)=>{
+                    return done(err,'email');
+                });
             }
         }
     });
