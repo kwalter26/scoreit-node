@@ -11,7 +11,7 @@ exports.email = (email,subject, message,done) => {
 
     let from_email = new helper.Email("reset@kkwalter.com");
     let to_email = new helper.Email(email);
-    let content = new helper.Content("text/plain", message);
+    let content = new helper.Content("text/html", message);
     let mail = new helper.Mail(from_email, subject, to_email, content);
 
     console.log(process.env.SENDGRID_API_KEY)

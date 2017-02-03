@@ -52,7 +52,8 @@ exports.forget = (username,done)=>{
                 return done(err,'cell');
             }else{
                 // Send email
-                com.email(user.email,'Password Reset Token',`Your reset password token is: ${token}`,(err,res)=>{
+                com.email(user.email,'Password Reset',
+                    `<html><body><p>Your password reset token is: <b>${token}</b></p></body></html>`,(err,res)=>{
                     return done(err,'email');
                 });
             }
@@ -88,6 +89,7 @@ let createToken = (data,done) =>{
         return done(err,token);
     });
 };
+
 
 
 export default exports;
