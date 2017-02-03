@@ -53,7 +53,7 @@ exports.forget = (username,done)=>{
             }else{
                 // Send email
                 com.email(user.email,'Password Reset',
-                    `<html><body><p>Your password reset token is: <b>${token}</b></p></body></html>`,(err,res)=>{
+                    `<html><body><h1>ScoreIt Authentication</h1><p>Your password reset token is: <b>${token}</b></p></body></html>`,(err,res)=>{
                     return done(err,'email');
                 });
             }
