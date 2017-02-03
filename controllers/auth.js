@@ -47,13 +47,12 @@ exports.forget = (username,done)=>{
     userController.editUser(0,currentUser,(err,user)=>{
         if(err) return done(err);
         if(user) {
-            console.log(token);
             if(user.useCell){
                 // Send text
                 return done(err,'cell');
             }else{
                 // Send email
-                com.email('walter.kl26@gmail.com','Test','This is a test',(err,res)=>{
+                com.email(user.email,'Password Reset Token',`Your reset password token is: ${token}`,(err,res)=>{
                     return done(err,'email');
                 });
             }
