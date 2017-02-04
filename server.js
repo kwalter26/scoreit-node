@@ -39,7 +39,7 @@ app.set('view engine', 'pug');
 
 
 app.listen(config.server.port,config.server.host, () => {
-    console.log('Example app listening on port '+config.server.serverUrl+'!');
+    console.log('Example app listening on port '+ config.server.port+'!');
 });
 
 export default app;
