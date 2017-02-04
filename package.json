@@ -31,7 +31,6 @@
     "serve-favicon": "^2.3.2",
     "supertest-session": "^3.0.0",
     "tether": "^1.4.0",
-    "textbelt": "0.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
