@@ -4,12 +4,15 @@
 /**
  * Created by Kyle Walter on 2/2/2017.
  */
+
+import text from 'textbelt';
 let exports = {};
 
 exports.email = (email,subject, message,done) => {
+    //TODO: make html template for emails
     let helper = require('sendgrid').mail;
 
-    let from_email = new helper.Email("reset@kkwalter.com");
+    let from_email = new helper.Email("reset@kkwalter.us");
     let to_email = new helper.Email(email);
     let content = new helper.Content("text/html", message);
     let mail = new helper.Mail(from_email, subject, to_email, content);

@@ -49,7 +49,10 @@ exports.forget = (username,done)=>{
         if(user) {
             if(user.useCell){
                 // Send text
-                return done(err,'cell');
+                com.email(`${user.cell}@vtext.com`,'Password reset',`Your password reset token is: ${token}`,(err,res)=>{
+                    return done(err,'cell');
+                });
+
             }else{
                 // Send email
                 com.email(user.email,'Password Reset',
