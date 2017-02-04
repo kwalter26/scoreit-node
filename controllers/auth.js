@@ -4,6 +4,7 @@
 import userController from './user';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import com from './comController';
 const exports = {};
 
 /*
@@ -46,13 +47,15 @@ exports.forget = (username,done)=>{
     userController.editUser(0,currentUser,(err,user)=>{
         if(err) return done(err);
         if(user) {
-            console.log(token);
             if(user.useCell){
                 // Send text
                 return done(err,'cell');
             }else{
                 // Send email
-                return done(err,'email');
+                com.email(user.email,'Password Reset',
+                    `<html><body><h1>ScoreIt Authentication</h1><p>Your password reset token is: <b>${token}</b></p></body></html>`,(err,res)=>{
+                    return done(err,'email');
+                });
             }
         }
     });
@@ -86,6 +89,7 @@ let createToken = (data,done) =>{
         return done(err,token);
     });
 };
+
 
 
 export default exports;
