@@ -48,6 +48,18 @@ router.post('/forget',(req,res)=>{
     });
 });
 
+router.post('/reset',(req,res)=>{
+    let user = req.body;
+    auth.reset(user,(err,user)=>{
+        return res.json({
+            success: err==null,
+            status:0,
+            error:err
+        });
+    });
+
+});
+
 router.get('/logout',(req,res)=>{
     res.clearCookie('jwt');
     res.json({

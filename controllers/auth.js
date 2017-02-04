@@ -49,6 +49,7 @@ exports.forget = (username,done)=>{
         if(user) {
             if(user.useCell){
                 // Send text
+                console.log(user.cell)
                 com.email(`${user.cell}@vtext.com`,'Password reset',`Your password reset token is: ${token}`,(err,res)=>{
                     return done(err,'cell');
                 });
@@ -64,8 +65,24 @@ exports.forget = (username,done)=>{
     });
 };
 
-exports.reset = ()=>{
-
+exports.reset = (newUser,done)=>{
+    userController.getUser(newUser.username,(err,user)=>{
+       if(err) return done (err);
+       if(user) {
+           if(newUser.token == user.token){
+               if(user.tokenExpire > Date.now()){
+                   newUser.tokenExpire = Date.now();
+                   userController.editUser(0,newUser,(err,user)=>{
+                       return done(err,user)
+                   });
+               }else{
+                   return done ('Token expired')
+               }
+           }else{
+               return done ('Invalid token')
+           }
+       }
+    });
 };
 
 exports.isAuthenticated = (token,role,done)=>{

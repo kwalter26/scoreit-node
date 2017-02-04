@@ -5,7 +5,6 @@
  * Created by Kyle Walter on 2/2/2017.
  */
 
-import text from 'textbelt';
 let exports = {};
 
 exports.email = (email,subject, message,done) => {

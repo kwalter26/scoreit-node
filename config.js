@@ -10,7 +10,7 @@ const config ={
     },
     jwt:{
         secret:'supersecret',
-        expiresIn:30
+        expiresIn:60 * 15
     },
     changeToken:{
         length:6,
